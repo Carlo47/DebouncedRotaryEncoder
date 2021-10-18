@@ -2,7 +2,7 @@
 Debounces the noisy steps of a rotary encoder and implements callbacks for the 
 events onclockwise and oncounterclockwise rotation.
 
-Analogous to the "debounced pushbutton", the RotaryEncoder class debounces the rotary 
+Analogous to the "debounced pushbutton", the `RotaryEncoder` class debounces the rotary 
 motion of an encoder. The user implements his actions to be executed on forward or 
 backward rotation and registers them with the encoder with `addOnClockwiseCB()` and 
 `addOnCounterClockwiseCB()`.
