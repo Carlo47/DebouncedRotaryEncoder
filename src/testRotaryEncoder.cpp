@@ -45,9 +45,9 @@
  */
 #include "RotaryEncoder.h"
 
-const uint8_t PIN_CTRLKNOB_SW  = GPIO_NUM_18;
-const uint8_t PIN_CTRLKNOB_DAT = GPIO_NUM_17;
-const uint8_t PIN_CTRLKNOB_CLK = GPIO_NUM_16;
+const uint8_t PIN_CTRLKNOB_SW  = GPIO_NUM_25;
+const uint8_t PIN_CTRLKNOB_DAT = GPIO_NUM_26;
+const uint8_t PIN_CTRLKNOB_CLK = GPIO_NUM_27;
 
 RotaryEncoder ctrlKnob(PIN_CTRLKNOB_CLK, PIN_CTRLKNOB_DAT, PIN_CTRLKNOB_SW);
 int counter = 0;
