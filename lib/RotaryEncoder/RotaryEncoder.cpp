@@ -69,7 +69,7 @@
 /**
  * Debounce rotary encoder by cleaning clock and data signal
  */
-void RotaryEncoder::_debounceRotaryByCleaning()
+void RotaryEncoder::_debounceByCleaning()
 {
   _clkState  = digitalRead(_pinClk);
   _dataState = digitalRead(_pinData);
@@ -78,14 +78,14 @@ void RotaryEncoder::_debounceRotaryByCleaning()
   {
     _prevClkState = _clkState;
     _cleanedClkState = _dataState;    // copy data state to get clean clock
-    digitalWrite(GPIO_NUM_2, _cleanedClkState);
+    digitalWrite(_pinData, _cleanedClkState);
   }
 
   if (_prevDataState != _dataState)   // data transition detected (even bouncing)
   {
     _prevDataState = _dataState;
     _cleanedDataState = _clkState;    // copy clock state to get clean data
-    digitalWrite(GPIO_NUM_4, _cleanedDataState);
+    digitalWrite(_pinClk, _cleanedDataState);
   }
   bool risingClk  = _prevCleanedClkState  == LOW  && _cleanedClkState == HIGH;
   bool risingData = _prevCleanedDataState == LOW  && _cleanedDataState == HIGH;
@@ -102,7 +102,7 @@ void RotaryEncoder::_debounceRotaryByCleaning()
  *    onCW()
  *    onCCW()
  */
-void RotaryEncoder::_debounceRotaryByTable()
+void RotaryEncoder::_debounceByTable()
 {
   _newTransition <<= 2; // shift previous transition 2 bits to the left
   if (digitalRead(_pinClk))   _newTransition |= 0b0010;  // compose newTransition 
@@ -123,9 +123,9 @@ void RotaryEncoder::_debounceRotaryByTable()
  * true  = by table lookup (this is the default method)
  * false = by cleaning clock and data signal
  */
-void RotaryEncoder::setDebouncingRotEncByTable(bool byTable)
+void RotaryEncoder::setDebouncingByTable(bool byTable)
 {
-  _debouncingRotEncByTable = byTable;
+  _debouncingByTable = byTable;
 }
 
 /**
@@ -184,7 +184,7 @@ void RotaryEncoder::_debounceButton()
 void RotaryEncoder::loop()
 {
   _debounceButton(); 
-  _debouncingRotEncByTable ? _debounceRotaryByTable() : _debounceRotaryByCleaning(); 
+  _debouncingByTable ? _debounceByTable() : _debounceByCleaning(); 
 }
 
 // Methods to add the callbacks

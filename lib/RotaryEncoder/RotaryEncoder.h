@@ -48,7 +48,7 @@ class RotaryEncoder
       pinMode(_pinButton, INPUT_PULLUP);
     }
  
-    void setDebouncingRotEncByTable(bool byTable = true);  // byTable=false selects debouncing by cleaning clock and data signal
+    void setDebouncingByTable(bool byTable = true);  // byTable=false selects debouncing by cleaning clock and data signal
     void addOnClickCB(CallbackFunction cb);
     void addOnLongClickCB(CallbackFunction cb);
     void addOnDoubleClickCB(CallbackFunction cb);
@@ -59,8 +59,8 @@ class RotaryEncoder
    
   private:
     static void _nop(){};
-    void _debounceRotaryByCleaning();
-    void _debounceRotaryByTable();
+    void _debounceByCleaning();
+    void _debounceByTable();
     void _debounceButton();
     CallbackFunction _onClick = _nop;
     CallbackFunction _onLongClick = _nop;
@@ -89,6 +89,6 @@ class RotaryEncoder
     uint8_t _newTransition = 0;
     uint16_t _transitions = 0;
     const uint8_t _validTransitions[16] = {0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0};
-    bool _debouncingRotEncByTable = true;
+    bool _debouncingByTable = true;
 };
 #endif

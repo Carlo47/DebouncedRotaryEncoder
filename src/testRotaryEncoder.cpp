@@ -45,9 +45,9 @@
  */
 #include "RotaryEncoder.h"
 
-const uint8_t PIN_CTRLKNOB_SW  = GPIO_NUM_25;
-const uint8_t PIN_CTRLKNOB_DAT = GPIO_NUM_26;
-const uint8_t PIN_CTRLKNOB_CLK = GPIO_NUM_27;
+const uint8_t PIN_CTRLKNOB_SW  = GPIO_NUM_18;
+const uint8_t PIN_CTRLKNOB_DAT = GPIO_NUM_17;
+const uint8_t PIN_CTRLKNOB_CLK = GPIO_NUM_16;
 
 RotaryEncoder ctrlKnob(PIN_CTRLKNOB_CLK, PIN_CTRLKNOB_DAT, PIN_CTRLKNOB_SW);
 int counter = 0;
@@ -58,7 +58,7 @@ int counter = 0;
 void onClick()
 {
   counter = 0;
-  ctrlKnob.setDebouncingRotEncByTable();
+  ctrlKnob.setDebouncingByTable();
   Serial.printf("Debouncing by table lookup, counter set to %d\n", counter);
 }
 
@@ -68,7 +68,7 @@ void onClick()
 void onLongClick()
 {
   counter = 0;
-  ctrlKnob.setDebouncingRotEncByTable(false);
+  ctrlKnob.setDebouncingByTable(false);
   Serial.printf("Debouncing by cleaning of clock and data signals, counter set to %d\n", counter);
 }
 
